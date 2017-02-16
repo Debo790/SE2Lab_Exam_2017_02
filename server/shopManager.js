@@ -262,7 +262,7 @@ var sales = function sales(year, discount){
 	if(discount<0 || discount>100){
 	return false;
 	} else if (discount >=0 || discount <=100){
-		for(int i=0; i<warehouse.length; i++){
+		for(var i=0; i<warehouse.length; i++){
 			if(warehouse[i].season==year){
 				var sconto = (warehouse[i].price/100)*discount;
 				warehouse[i].price = warehouse[i].price - sconto;
