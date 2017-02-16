@@ -60,7 +60,7 @@ app.post('/searchItem', function(request, response)
 
 	var itemID;
     var itemSize;
-    var itemColour
+    var itemColour;
 	
 	//check body and parameters
 	if ( typeof request.body !== 'undefined' && request.body)
@@ -126,7 +126,7 @@ app.post('/sellItem', function(request, response)
 
 	var itemID;
     var itemSize;
-    var itemColour
+    var itemColour;
 	
 	//check body and parameters
 	if ( typeof request.body !== 'undefined' && request.body)
@@ -273,6 +273,55 @@ app.post('/restockItem', function(request, response)
 });
 
 //ADD YOUR CODE BELOW THIS COMMENT, IF IT IS POSSIBLE
+
+/**
+ * @brief returns items on sale and update the databse with new prices
+ * @return update the items that match "year" criteria reducing the price by the specified percentage specified in "discount" and returns the updated elements
+ */
+app.post('/sales', function(request, response) 
+{
+	var headers = {};
+	headers["Access-Control-Allow-Origin"] = "*";
+	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+	headers["Access-Control-Allow-Credentials"] = false;
+	headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+	headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+	headers["Content-Type"] = "application/json";
+
+	var itemYear;
+	var itemDiscount;
+	
+	//check body and parameters
+	if ( typeof request.body !== 'undefined' && request.body)
+	{
+        //read items
+        
+        //ItemYear
+		if ( typeof request.body.season !== 'undefined' && request.body.season)
+			 itemYear = parseInt(request.body.season);
+		else 
+			itemYear = null;
+        
+        //itemDiscount
+        if ( typeof request.body.price !== 'undefined' && request.body.price)
+            itemSize = request.body.price;
+		else 
+			itemDiscount = null;
+        
+        	//update with sales
+		var items = shopManager.sales(itemYear, itemDiscount);
+		//if exists
+		if (items != null)
+		{
+			response.writeHead(200, headers);
+			response.end(JSON.stringify(items));
+		}
+		
+	}
+	
+   
+});
+
 
 
 app.listen(app.get('port'), function() {

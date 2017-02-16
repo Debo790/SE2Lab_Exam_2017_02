@@ -74,3 +74,79 @@ describe("Test /searchItem", function() {
 	
 
 });
+
+// Test for /sellItem
+describe("Test /sellItem", function() {
+	//set the data
+	var data = {
+			ID: 1,
+            size : "S",
+            colour: "blue"
+		};
+
+	var data2 = {
+		ID: 2,
+		size : "M",
+		quantity: 4
+	};
+	
+	//legal request
+	it("to returns status code 200", function(done) {
+	  client.post(base_url + "searchItem/", data, function(err, res, body) {
+		expect(body).toEqual([
+			{
+                ID: 1,
+                type: "trausers",
+        		size: "S",
+                quantity: 2,
+                colour: "blue",
+                price: 11,
+                season: 2017
+	}]
+		);
+
+		done();
+	  });
+	});
+
+	it("to returns status code 200", function(done) {
+	  client.post(base_url + "searchItem/", data2, function(err, res, body) {
+		expect(body).toEqual([
+			{
+                ID: 2,
+       		type: "trausers",
+		size: "M",
+        	quantity: 4,
+		colour: "grey",
+        	price: 10,
+        	season: 2016
+	}]
+		);
+
+		done();
+	  });
+	});
+
+	//item non existing
+	data1 = {ID: "10" };
+	it("to returns status code 406", function(done) {
+	  client.post(base_url + "sellItem/", data1, function(err, res, body) {
+		expect(res.statusCode).toBe(404);
+		done();
+	  });
+	});
+	
+	//wrong parameters
+
+	data2 = {quantity: 6 };
+	it("to returns status code 404", function(done) {
+	  client.post(base_url + "sellItem/", data2, function(err, res, body) {
+		expect(res.statusCode).toBe(404);
+		done();
+	  });
+	});
+
+
+	
+
+});

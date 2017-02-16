@@ -112,30 +112,87 @@ paths:
             type: array
             items:
               $ref: "#/definitions/item"
+              
+  /restockItems:
+    post:
+      summary: restock an item
+      description: add the item to the warehouse
+      parameters:
+        - name: ID
+          in: formData
+          description: id of the item
+          required: false
+          type: string
+        - name: size
+          in: formData
+          description: size of the item
+          required: false
+          type: integer
+        - name: type
+          in: formData
+          description: type of the item
+          required: false
+          type: string
+        - name: quantity
+          in: formData
+          description: quantity of the item
+          required: false
+          type: integer
+        - name: season
+          in: formData
+          description: season of the items
+          required: false
+          type: integer
+        - name: colour
+          in: formData
+          description: colour of the item
+          required: false
+          type: string
+        - name: price
+          in: formData
+          description: price of the item
+          required: false
+          type: integer
+      responses:
+        200:
+          description: list of items modified
+          schema: 
+            type: array
+            items:
+              $ref: "#/definitions/item"
+        400:
+          description: insertion error
+        406:
+          description: ID of error
+          schema: 
+            properties:
+              error:
+                type: integer
           
 definitions:
   item:
     properties:
       ID:
         type: string
-        description: ID of the pizza
+        description: ID of the item
       type:
         type: string
-        description: name of the pizza
+        description: type of the item
       size:
         type: integer
-        description: price of the pizza
+        description: size of the item
       quantity:
         type: integer
-        description: price of the pizza
+        description: quantity of the item
       colour:
         type: string
-        description: name of the pizza
+        description: colour of the item
       price:
         type: integer
-        description: price of the pizza
+        description: price of the item
       season:
         type: integer
-        description: price of the pizza
+        description: season of the item
 
         
+
