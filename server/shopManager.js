@@ -258,7 +258,7 @@ var restockItem = function restockItem(item)
 //ADD YOUR CODE BELOW THIS COMMENT, IF IT IS POSSIBLE
 
 var sales = function sales(year, discount){
-	var res[];
+	var res = [];
 	if(discount<0 || discount>100){
 	return false;
 	} else if (discount >=0 || discount <=100){
